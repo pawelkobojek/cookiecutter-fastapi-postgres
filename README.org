@@ -1,0 +1,9 @@
+* What is it?
+A [[https://github.com/cookiecutter/cookiecutter][Cookiecutter]] template for [[https://fastapi.tiangolo.com/][FastAPI]] + [[https://www.postgresql.org/][PostgreSQL]]. No frontend nor background worker which I prefer to keep in separate repositories. It uses `docker-compose` for local development. When started with `docker-compose up` it spins a testing database which may also be used for automatic tests.
+* Usage
+1. Make sure you have [[https://cookiecutter.readthedocs.io/en/1.7.2/installation.html][Cookiecutter]] installed
+2. If you use =pyenv=: =pyenv exec python -m cookiecutter https://github.com/pawelkobojek/cookiecutter-fastapi-postgres=
+3. Otherwise (=python3= or =python=) =python3 -m cookiecutter https://github.com/pawelkobojek/cookiecutter-fastapi-postgres=
+
+
+

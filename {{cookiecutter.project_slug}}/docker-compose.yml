@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+  backend:
+    image: playground/backend
+    build: .
+    depends_on:
+      - db
+      - queue
+    secrets:
+      - postgres_password
+    networks:
+      - db
+      - queue
+    volumes:
+      - $PWD/{{cookiecutter.project_slug}}:/{{cookiecutter.project_slug}}
+  
+  db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+      # in docker swarm use configs instead (not supported in compose)
+      - $PWD/configs/postgres_init/:/docker-entrypoint-initdb.d/
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: screener
+    networks:
+      - db
+    secrets:
+      - postgres_password
+
+  pgadmin:
+    image: dpage/pgadmin4
+    networks:
+      - db
+    depends_on:
+      - db
+    ports:
+      - 5050:5050
+    environment:
+      PGADMIN_DEFAULT_EMAIL: {{cookiecutter.pgadmin_email}}
+      PGADMIN_DEFAULT_PASSWORD: {{cookiecutter.pgadmin_password}}
+      PGADMIN_LISTEN_PORT: {{cookiecutter.pgadmin_port}}
+    
+volumes:
+  app-db-data:
+
+secrets:
+  postgres_password:
+    file: secrets/db_password.txt
+
+configs:
+  postgres_initdb:
+    file: configs/postgres_init/create-test-db.sh
+    
+networks:
+  db:

@@ -1,0 +1,11 @@
+{
+  "project_name": "Hello Fastapi Postgres",
+  "project_slug": "{{cookiecutter.project_name|lower|replace(' ', '-')}}",
+  "package_name": "{{cookiecutter.project_slug|lower|replace('-', '_')}}",
+  "postgres_db_name": "{{cookiecutter.project_slug}}",
+  "pgadmin_email": "user@example.com",
+  "pgadmin_password": "123456",
+  "pgadmin_port": "5050",
+  "author": "",
+  "python_version": "latest"
+}

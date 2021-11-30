@@ -1,0 +1,8 @@
+-r requirements.txt
+
+pytest
+ipython
+black
+isort
+flake8
+debugpy
